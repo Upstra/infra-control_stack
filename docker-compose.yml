@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    profiles: ["local"]
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    networks:
+      - upstra
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ../infra-control
+      dockerfile: Dockerfile
+    env_file: .env
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    #depends_on:
+    #  - db
+    networks:
+      - upstra
+
+  frontend:
+    build:
+      context: ../infra-control_front
+      dockerfile: Dockerfile
+    env_file: .env
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks:
+      - upstra
+
+networks:
+  upstra:
+
+volumes:
+  db_data:
