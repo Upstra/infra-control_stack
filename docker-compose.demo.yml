@@ -1,0 +1,143 @@
+# Stack de démonstration Upstra — aucun hardware requis
+# Usage : cp .env.demo.example .env.demo && docker compose --env-file .env.demo -f docker-compose.demo.yml up --build
+#
+# Configuration UI après démarrage :
+#   vCenter  → IP: vcsim,      port: 8989, user: user, pass: pass
+#   iLO 1    → IP: mock-ilo-1, user: admin, pass: admin  (esxi-host-01)
+#   iLO 2    → IP: mock-ilo-2, user: admin, pass: admin  (esxi-host-02)
+#   iLO 3    → IP: mock-ilo-3, user: admin, pass: admin  (esxi-host-03)
+#   UPS      → http://mock-ups:8000/battery
+#
+# Déclencher la démo : POST http://localhost:5010/simulate/discharge
+
+services:
+
+  # ─── Simulateurs infrastructure ─────────────────────────────────────────
+
+  vcsim:
+    build:
+      context: ../mock_vcsim
+    container_name: upstra-vcsim
+    ports:
+      - "8989:8989"
+    networks:
+      - upstra-demo
+    restart: unless-stopped
+
+  mock-ilo-1:
+    build:
+      context: ../mock_ilo
+    container_name: upstra-mock-ilo-1
+    environment:
+      SERVER_NAME: esxi-host-01
+    ports:
+      - "5001:443"
+    networks:
+      - upstra-demo
+    restart: unless-stopped
+
+  mock-ilo-2:
+    build:
+      context: ../mock_ilo
+    container_name: upstra-mock-ilo-2
+    environment:
+      SERVER_NAME: esxi-host-02
+    ports:
+      - "5002:443"
+    networks:
+      - upstra-demo
+    restart: unless-stopped
+
+  mock-ilo-3:
+    build:
+      context: ../mock_ilo
+    container_name: upstra-mock-ilo-3
+    environment:
+      SERVER_NAME: esxi-host-03
+    ports:
+      - "5003:443"
+    networks:
+      - upstra-demo
+    restart: unless-stopped
+
+  mock-ups:
+    build:
+      context: ../mock_ups
+    container_name: upstra-mock-ups
+    ports:
+      - "5010:8000"
+    networks:
+      - upstra-demo
+    restart: unless-stopped
+
+  # ─── Infrastructure applicative ─────────────────────────────────────────
+
+  postgres:
+    image: postgres:15
+    container_name: upstra-demo-postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - demo_db_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+    networks:
+      - upstra-demo
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d ${DB_NAME}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: upstra-demo-redis
+    networks:
+      - upstra-demo
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # ─── Application ────────────────────────────────────────────────────────
+
+  backend:
+    build:
+      context: ../infra-control
+      dockerfile: Dockerfile
+    container_name: upstra-demo-backend
+    env_file: .env.demo
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - upstra-demo
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ../infra-control_front
+      dockerfile: Dockerfile
+    container_name: upstra-demo-frontend
+    env_file: .env.demo
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks:
+      - upstra-demo
+    restart: unless-stopped
+
+networks:
+  upstra-demo:
+
+volumes:
+  demo_db_data:
