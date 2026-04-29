@@ -1,0 +1,82 @@
+{
+  "rooms": [
+    {
+      "tempId": "temp_room_demo",
+      "name": "Salle Demo"
+    }
+  ],
+  "upsList": [
+    {
+      "tempId": "temp_ups_demo",
+      "name": "Onduleur Demo",
+      "ip": "http://mock-ups:8000",
+      "roomId": "temp_room_demo",
+      "grace_period_on": 30,
+      "grace_period_off": 10
+    }
+  ],
+  "servers": [
+    {
+      "tempId": "temp_vcenter",
+      "name": "vCenter Demo",
+      "type": "vcenter",
+      "ip": "vcsim",
+      "adminUrl": "http://vcsim:8989",
+      "login": "user",
+      "password": "pass",
+      "state": "UP",
+      "roomId": "temp_room_demo"
+    },
+    {
+      "tempId": "temp_esxi_01",
+      "name": "esxi-host-01",
+      "type": "esxi",
+      "ip": "mock-ilo-1",
+      "adminUrl": "https://mock-ilo-1",
+      "login": "admin",
+      "password": "admin",
+      "state": "UP",
+      "priority": 1,
+      "roomId": "temp_room_demo",
+      "upsId": "temp_ups_demo",
+      "ilo_name": "iLO-01",
+      "ilo_ip": "mock-ilo-1",
+      "ilo_login": "admin",
+      "ilo_password": "admin"
+    },
+    {
+      "tempId": "temp_esxi_02",
+      "name": "esxi-host-02",
+      "type": "esxi",
+      "ip": "mock-ilo-2",
+      "adminUrl": "https://mock-ilo-2",
+      "login": "admin",
+      "password": "admin",
+      "state": "UP",
+      "priority": 2,
+      "roomId": "temp_room_demo",
+      "upsId": "temp_ups_demo",
+      "ilo_name": "iLO-02",
+      "ilo_ip": "mock-ilo-2",
+      "ilo_login": "admin",
+      "ilo_password": "admin"
+    },
+    {
+      "tempId": "temp_esxi_03",
+      "name": "esxi-host-03",
+      "type": "esxi",
+      "ip": "mock-ilo-3",
+      "adminUrl": "https://mock-ilo-3",
+      "login": "admin",
+      "password": "admin",
+      "state": "UP",
+      "priority": 3,
+      "roomId": "temp_room_demo",
+      "upsId": "temp_ups_demo",
+      "ilo_name": "iLO-03",
+      "ilo_ip": "mock-ilo-3",
+      "ilo_login": "admin",
+      "ilo_password": "admin"
+    }
+  ]
+}
