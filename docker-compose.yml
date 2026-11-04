@@ -19,6 +19,8 @@ services:
     build:
       context: ../infra-control
       dockerfile: Dockerfile
+      additional_contexts:
+        ups_manager: ../ups_manager
     env_file: .env
     ports:
       - "${APP_PORT}:${APP_PORT}"
