@@ -109,6 +109,8 @@ services:
     build:
       context: ../infra-control
       dockerfile: Dockerfile
+      additional_contexts:
+        ups_manager: ../ups_manager
     container_name: upstra-demo-backend
     env_file: .env.demo
     ports:
