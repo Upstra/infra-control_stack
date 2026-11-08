@@ -25,7 +25,7 @@ docker compose --env-file .env.demo -f docker-compose.demo.yml up --build
 |---|---|---|---|
 | Frontend | http://localhost:5173 | `5173` | Interface Upstra |
 | Backend API | http://localhost:3000 | `3000` | NestJS — Swagger sur `/docs` |
-| vCenter simulé | localhost:8989 | `8989` | VMware govcsim (1 DC, 1 cluster, 3 hosts, 10 VMs) |
+| vCenter simulé | https://localhost:8989 | `8989` | VMware govcsim (1 DC, 1 cluster, 3 hosts, 10 VMs) — écoute sur le port 443 en interne, mappé sur 8989 côté host |
 | iLO simulé 1 | https://localhost:5001 | `5001` | esxi-host-01 |
 | iLO simulé 2 | https://localhost:5002 | `5002` | esxi-host-02 |
 | iLO simulé 3 | https://localhost:5003 | `5003` | esxi-host-03 |
@@ -64,7 +64,7 @@ Le fichier contient la salle, l'UPS et les 4 serveurs (1 vCenter + 3 ESXi avec i
 | Champ | Valeur |
 |---|---|
 | Nom | `Onduleur Demo` |
-| IP | `http://mock-ups:8000/battery` |
+| IP | `http://mock-ups:8000` (sans `/battery` — le script de poll l'ajoute lui-même) |
 | Grace period ON | `30` s |
 | Grace period OFF | `10` s |
 | Salle | `Salle Demo` |
@@ -84,7 +84,7 @@ Le fichier contient la salle, l'UPS et les 4 serveurs (1 vCenter + 3 ESXi avec i
 | État | `UP` |
 | Salle | `Salle Demo` |
 
-> Pas de priorité ni d'UPS pour un serveur de type `vcenter`.
+> Pas de priorité ni d'UPS pour un serveur de type `vcenter`. Il n'y a pas de champ port dans l'UI : le backend se connecte toujours sur le 443 interne.
 
 ---
 

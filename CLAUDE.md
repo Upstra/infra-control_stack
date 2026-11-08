@@ -44,7 +44,7 @@ docker compose --env-file .env.demo -f docker-compose.demo.yml up --build
 |---|---|---|
 | `frontend` | http://localhost:5173 | Interface Upstra |
 | `backend` | http://localhost:3000 | API NestJS + Swagger `/docs` |
-| `vcsim` | localhost:8989 | vCenter simulé (VMware govcsim) |
+| `vcsim` | https://localhost:8989 | vCenter simulé (VMware govcsim) — écoute sur 443 en interne |
 | `mock-ilo-1` | https://localhost:5001 | iLO simulé — esxi-host-01 |
 | `mock-ilo-2` | https://localhost:5002 | iLO simulé — esxi-host-02 |
 | `mock-ilo-3` | https://localhost:5003 | iLO simulé — esxi-host-03 |
@@ -57,7 +57,7 @@ docker compose --env-file .env.demo -f docker-compose.demo.yml up --build
 
 | Ressource | IP / Host | Port | User | Pass |
 |---|---|---|---|---|
-| vCenter | `vcsim` | `8989` | `user` | `pass` |
+| vCenter | `vcsim` | — (pas de champ port dans l'UI, backend connecte sur 443) | `user` | `pass` |
 | iLO serveur 1 | `mock-ilo-1` | — | `admin` | `admin` |
 | iLO serveur 2 | `mock-ilo-2` | — | `admin` | `admin` |
 | iLO serveur 3 | `mock-ilo-3` | — | `admin` | `admin` |

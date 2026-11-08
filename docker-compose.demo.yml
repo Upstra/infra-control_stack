@@ -2,7 +2,7 @@
 # Usage : cp .env.demo.example .env.demo && docker compose --env-file .env.demo -f docker-compose.demo.yml up --build
 #
 # Configuration UI après démarrage :
-#   vCenter  → IP: vcsim,      port: 8989, user: user, pass: pass
+#   vCenter  → IP: vcsim,      user: user, pass: pass (écoute sur 443 en interne, exposé en 8989 côté host)
 #   iLO 1    → IP: mock-ilo-1, user: admin, pass: admin  (esxi-host-01)
 #   iLO 2    → IP: mock-ilo-2, user: admin, pass: admin  (esxi-host-02)
 #   iLO 3    → IP: mock-ilo-3, user: admin, pass: admin  (esxi-host-03)
@@ -19,7 +19,7 @@ services:
       context: ../mock_vcsim
     container_name: upstra-vcsim
     ports:
-      - "8989:8989"
+      - "8989:443"
     networks:
       - upstra-demo
     restart: unless-stopped
