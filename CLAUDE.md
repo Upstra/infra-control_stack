@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **Upstra Stack** — Docker Compose orchestration for the full Upstra platform. Two launch modes:
 
 - **Production** (`docker-compose.yml`) — backend + frontend, DB/Redis natifs sur Raspberry Pi
-- **Demo / Mock** (`../docker-compose.demo.yml`) — stack complète simulée : vcsim (VMware), 3 mock iLO, 1 mock UPS, PostgreSQL, Redis, backend, frontend
+- **Demo / Mock** (`../docker-compose.demo.yml`) — stack complète simulée : vcsim (VMware), 3 mock iLO, 1 mock UPS, PostgreSQL, Redis, Prometheus, backend, frontend
 
 ## Structure
 
@@ -51,6 +51,7 @@ docker compose --env-file .env.demo -f docker-compose.demo.yml up --build
 | `mock-ups` | http://localhost:5010 | UPS simulé |
 | `postgres` | localhost:5432 | Base de données |
 | `redis` | localhost:6379 | Cache / état migration |
+| `prometheus` | http://localhost:9090 | Historique des métriques (scrape `backend:3000/metrics`) |
 
 ### Configuration dans l'UI après démarrage
 
