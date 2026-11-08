@@ -21,7 +21,7 @@
       "name": "vCenter Demo",
       "type": "vcenter",
       "ip": "vcsim",
-      "adminUrl": "http://vcsim:8989",
+      "adminUrl": "https://vcsim",
       "login": "user",
       "password": "pass",
       "state": "UP",
