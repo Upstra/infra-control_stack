@@ -103,6 +103,24 @@ services:
       timeout: 3s
       retries: 5
 
+  # ─── Monitoring ─────────────────────────────────────────────────────────
+
+  prometheus:
+    image: prom/prometheus:v2.53.5
+    container_name: upstra-demo-prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=7d'
+    volumes:
+      - ./prometheus.demo.yml:/etc/prometheus/prometheus.yml:ro
+      - demo_prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - upstra-demo
+    restart: unless-stopped
+
   # ─── Application ────────────────────────────────────────────────────────
 
   backend:
@@ -143,3 +161,4 @@ networks:
 
 volumes:
   demo_db_data:
+  demo_prometheus_data:

@@ -32,6 +32,7 @@ docker compose --env-file .env.demo -f docker-compose.demo.yml up --build
 | UPS simulé | http://localhost:5010 | `5010` | Endpoint batterie contrôlable |
 | PostgreSQL | localhost:5432 | `5432` | Base de données |
 | Redis | localhost:6379 | `6379` | Cache / état migration |
+| Prometheus | http://localhost:9090 | `9090` | Historique des métriques (scrape `backend:3000/metrics`) |
 
 ### Configuration UI — workflow complet après démarrage
 
