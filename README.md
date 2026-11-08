@@ -78,13 +78,13 @@ Le fichier contient la salle, l'UPS et les 4 serveurs (1 vCenter + 3 ESXi avec i
 | Nom | `vCenter Demo` |
 | Type | `vcenter` |
 | IP | `vcsim` |
-| URL admin | `http://vcsim:8989` |
+| URL admin | `https://vcsim` |
 | Login | `user` |
 | Mot de passe | `pass` |
 | État | `UP` |
 | Salle | `Salle Demo` |
 
-> Pas de priorité ni d'UPS pour un serveur de type `vcenter`. Il n'y a pas de champ port dans l'UI : le backend se connecte toujours sur le 443 interne.
+> Pas de priorité ni d'UPS pour un serveur de type `vcenter`. Le backend se connecte sur le 443 interne ; un autre port peut être indiqué dans l'URL admin (ex. `https://vcenter:8443`).
 
 ---
 

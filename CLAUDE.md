@@ -57,7 +57,7 @@ docker compose --env-file .env.demo -f docker-compose.demo.yml up --build
 
 | Ressource | IP / Host | Port | User | Pass |
 |---|---|---|---|---|
-| vCenter | `vcsim` | — (pas de champ port dans l'UI, backend connecte sur 443) | `user` | `pass` |
+| vCenter | `vcsim` | — (443 par défaut ; un autre port se met dans l'URL admin) | `user` | `pass` |
 | iLO serveur 1 | `mock-ilo-1` | — | `admin` | `admin` |
 | iLO serveur 2 | `mock-ilo-2` | — | `admin` | `admin` |
 | iLO serveur 3 | `mock-ilo-3` | — | `admin` | `admin` |
