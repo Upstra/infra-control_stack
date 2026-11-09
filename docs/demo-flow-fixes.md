@@ -1,16 +1,16 @@
-# Correctifs du parcours démo (branche `develop`)
+# Correctifs du parcours démo (branche `flow`)
 
 _Session des 06–08/11/2026. Contexte global : `infra-control/docs/demo-flow-fixes.md`._
 
 ## Résumé
 
-| Branche (mergée en `--no-ff` dans `develop`) | Contenu |
+| Branche (mergée en `--no-ff` dans `develop`, devenu `flow`) | Contenu |
 |---|---|
 | `fix/demo-stack` | Contexte de build `ups_manager`, priorités du seed, script de reset rapide |
 | `feature/demo-prometheus` | Prometheus dans la stack démo |
 | `fix/demo-vcenter-port` | Seed et docs alignés sur le port 443 du vCenter |
 
-`origin/develop` (PR #1 `fix/demo-vcenter-connectivity`) a aussi été mergé : il avait déjà ajouté `additional_contexts` et le mapping `8989:443` de vcsim.
+`origin/develop` (PR #1 `fix/demo-vcenter-connectivity`) a aussi été mergé. Depuis le 09/11, `develop` est remplacée par `flow`, branche d'intégration unique de tous les repos Upstra : il avait déjà ajouté `additional_contexts` et le mapping `8989:443` de vcsim.
 
 ## Changements
 
