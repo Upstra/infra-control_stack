@@ -38,6 +38,6 @@ README et CLAUDE.md : Prometheus dans les tableaux de services, port vCenter (44
 
 `down -v` puis `up` : 10 conteneurs démarrés, cibles Prometheus `up`, `/health` vert, parcours wizard complet avec le seed, télémétrie vCenter fraîche sur le port 443.
 
-## Non commité
+## Compte admin de test
 
-`.env.demo` contient, en local uniquement, les identifiants `DEMO_ADMIN_*` du compte admin de test créé pour le parcours UI.
+Les identifiants du compte admin créé pour le parcours UI sont dans `.demo-admin.local` (ignoré par git, jamais commité). `.env.demo` ne contient plus aucun identifiant de compte.
